@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "services": {
+    "backend": {
+      "builder": "DOCKERFILE",
+      "dockerfilePath": "backend/Dockerfile",
+      "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
+      "healthcheckPath": "/health",
+      "envVars": {
+        "RAILWAY_SERVICE_NAME": "backend"
+      }
+    },
+    "frontend": {
+      "builder": "DOCKERFILE",
+      "dockerfilePath": "frontend/Dockerfile",
+      "startCommand": "npm start",
+      "envVars": {
+        "NEXT_PUBLIC_API_URL": "${{backend.RAILWAY_PUBLIC_DOMAIN}}",
+        "RAILWAY_SERVICE_NAME": "frontend"
+      }
+    }
+  }
+}
