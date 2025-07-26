@@ -19,6 +19,8 @@ RUN python3 -m venv /app/backend/venv && \
     /app/backend/venv/bin/pip install -r backend/requirements.txt
 
 COPY backend/ backend/
+# Remove any accidentally copied env files
+RUN find /app/backend -name ".env*" -type f -delete || true
 
 # Frontend setup
 COPY frontend/package*.json frontend/
