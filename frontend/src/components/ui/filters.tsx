@@ -73,7 +73,7 @@ export function Filters({ onApplyFilters }: FiltersProps) {
           {allGenres.map((genre) => (
             <Button
               key={genre.id}
-              variant={selectedGenres.includes(genre.id) ? 'primary' : 'outline'}
+              variant={selectedGenres.includes(genre.id) ? 'default' : 'outline'}
               size="sm"
               onClick={() => toggleGenre(genre.id)}
               className={cn(selectedGenres.includes(genre.id) && 'opacity-100', 'opacity-80')}
@@ -87,21 +87,21 @@ export function Filters({ onApplyFilters }: FiltersProps) {
         <h4 className="text-sm font-medium">Media Type</h4>
         <div className="flex gap-2">
           <Button
-            variant={selectedMediaType === 'movie' ? 'primary' : 'outline'}
+            variant={selectedMediaType === 'movie' ? 'default' : 'outline'}
             size="sm"
             onClick={() => setSelectedMediaType('movie')}
           >
             Movies
           </Button>
           <Button
-            variant={selectedMediaType === 'tv' ? 'primary' : 'outline'}
+            variant={selectedMediaType === 'tv' ? 'default' : 'outline'}
             size="sm"
             onClick={() => setSelectedMediaType('tv')}
           >
             TV Shows
           </Button>
           <Button
-            variant={selectedMediaType === 'all' ? 'primary' : 'outline'}
+            variant={selectedMediaType === 'all' ? 'default' : 'outline'}
             size="sm"
             onClick={() => setSelectedMediaType('all')}
           >
