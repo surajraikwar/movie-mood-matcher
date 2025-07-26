@@ -1,18 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
-import { tvGenres, movieGenres } from '@/mocks/genres';
-import { genres as allGenres } from '@/mocks/allGenres';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { apiClient } from '@/lib/api-client';
 
 interface FiltersProps {
   onApplyFilters: (filters: any) => void;
 }
 
+interface Genre {
+  id: number;
+  name: string;
+}
+
 export function Filters({ onApplyFilters }: FiltersProps) {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [selectedMediaType, setSelectedMediaType] = useState<'movie' | 'tv' | 'all'>('all');
+  const [allGenres, setAllGenres] = useState<Genre[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch genres from API
+    const fetchGenres = async () => {
+      try {
+        const response = await apiClient.get('/genres/all');
+        if (response.data) {
+          // Combine movie and TV genres, removing duplicates
+          const movieGenres = response.data.movie || [];
+          const tvGenres = response.data.tv || [];
+          const genreMap = new Map();
+          
+          [...movieGenres, ...tvGenres].forEach(genre => {
+            genreMap.set(genre.id, genre);
+          });
+          
+          setAllGenres(Array.from(genreMap.values()));
+        }
+      } catch (error) {
+        console.error('Failed to fetch genres:', error);
+        // Fallback genres if API fails
+        setAllGenres([
+          { id: 28, name: 'Action' },
+          { id: 12, name: 'Adventure' },
+          { id: 16, name: 'Animation' },
+          { id: 35, name: 'Comedy' },
+          { id: 18, name: 'Drama' },
+          { id: 27, name: 'Horror' },
+          { id: 10749, name: 'Romance' },
+          { id: 878, name: 'Sci-Fi' },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGenres();
+  }, []);
 
   const toggleGenre = (id: number) => {
     setSelectedGenres((current) =>
