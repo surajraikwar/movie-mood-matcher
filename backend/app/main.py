@@ -7,8 +7,9 @@ from contextlib import asynccontextmanager
 from loguru import logger
 
 from .core.config import settings
-from .api.routes import recommendation, content, genres
+from .api.routes import recommendation, content, genres, auth, chat
 from .schemas.recommendation import ErrorResponse
+from .database.config import engine, Base
 
 
 @asynccontextmanager
@@ -16,6 +17,11 @@ async def lifespan(app: FastAPI):
     """Application lifespan manager."""
     # Startup
     logger.info(f"Starting {settings.app_name} v{settings.app_version}")
+    
+    # Create database tables
+    logger.info("Creating database tables...")
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables created successfully")
     
     yield
     
@@ -93,6 +99,13 @@ async def health_check():
 
 
 # Include routers
+# Authentication routes (no version prefix for standard auth endpoints)
+app.include_router(
+    auth.router,
+    prefix="/api",
+    tags=["authentication"]
+)
+
 app.include_router(
     recommendation.router,
     prefix="/api/v1/recommendations",
@@ -109,4 +122,10 @@ app.include_router(
     genres.router,
     prefix="/api/v1/genres",
     tags=["genres"]
+)
+
+app.include_router(
+    chat.router,
+    prefix="/api/v1",
+    tags=["chat"]
 )

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Film, Moon, Sun, Github } from 'lucide-react';
+import { Film, Moon, Sun, Github, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useChatStore } from '@/lib/store';
 
@@ -21,9 +21,17 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Film className="w-8 h-8 text-primary" />
-            <h1 className="text-2xl font-bold">Movie Mood Matcher</h1>
+            <h1 className="text-2xl font-bold text-primary">
+              Movie Mood Matcher
+            </h1>
+            <a 
+              href="/chat" 
+              className="ml-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all flex items-center gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              Try StreamSage AI
+            </a>
           </div>
-          
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"

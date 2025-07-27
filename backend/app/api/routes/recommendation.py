@@ -3,7 +3,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional, Dict, Any
 
-from ...services.recommendation_service import RecommendationService
+from ...services.enhanced_recommendation_service import EnhancedRecommendationService as RecommendationService
 from ...schemas.recommendation import (
     RecommendationQuery,
     RecommendationResponse,

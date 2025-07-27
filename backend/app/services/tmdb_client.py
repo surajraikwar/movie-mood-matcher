@@ -195,3 +195,11 @@ class TMDBClient:
             params={"query": query}
         )
         return response.get("results", [])
+    
+    async def get_similar(self, content_id: int, media_type: str) -> List[Dict]:
+        """Get similar content based on media type."""
+        if media_type == "movie":
+            response = await self.get_similar_movies(content_id)
+        else:
+            response = await self.get_similar_tv(content_id)
+        return response.get("results", [])

@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     """Application settings."""
     
     # Application
-    app_name: str = "Movie Mood Matcher"
-    app_version: str = "0.1.0"
+    app_name: str = "StreamSage AI"
+    app_version: str = "1.0.0"
     debug: bool = True
     api_host: str = "0.0.0.0"
     api_port: int = 8000
@@ -19,6 +19,22 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 7
+    
+    # Email
+    smtp_host: Optional[str] = None
+    smtp_port: int = 587
+    smtp_user: Optional[str] = None
+    smtp_password: Optional[str] = None
+    smtp_from: str = "noreply@streamsage.ai"
+    
+    # OAuth (for future implementation)
+    google_client_id: Optional[str] = None
+    google_client_secret: Optional[str] = None
+    apple_client_id: Optional[str] = None
+    apple_team_id: Optional[str] = None
+    apple_key_id: Optional[str] = None
+    apple_private_key: Optional[str] = None
     
     # Database
     database_url: Optional[str] = None

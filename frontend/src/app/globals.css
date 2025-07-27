@@ -2,6 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Background Gradient Animations */
+@keyframes animate-first {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.5); }
+}
+
+@keyframes animate-second {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-180deg) scale(1.5); }
+}
+
+@keyframes animate-third {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.5); }
+}
+
+@keyframes animate-fourth {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-180deg) scale(1.2); }
+}
+
+@keyframes animate-fifth {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.3); }
+}
+
+.animate-first {
+  animation: animate-first 20s ease-in-out infinite;
+}
+
+.animate-second {
+  animation: animate-second 25s ease-in-out infinite;
+}
+
+.animate-third {
+  animation: animate-third 30s ease-in-out infinite;
+}
+
+.animate-fourth {
+  animation: animate-fourth 35s ease-in-out infinite;
+}
+
+.animate-fifth {
+  animation: animate-fifth 40s ease-in-out infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
