@@ -3,6 +3,12 @@
 
 import os
 import sys
+import traceback
+
+print("=== Starting Movie Mood Matcher Backend ===")
+print(f"Python version: {sys.version}")
+print(f"Current directory: {os.getcwd()}")
+print(f"Files in current directory: {os.listdir('.')}")
 
 # Set default environment variables if not set
 defaults = {
@@ -39,14 +45,31 @@ if "OPENAI_API_KEY" not in os.environ:
     os.environ["OPENAI_API_KEY"] = "dummy-key-optional"
 
 # Import and run uvicorn
-import uvicorn
+try:
+    import uvicorn
+    print("Successfully imported uvicorn")
+except Exception as e:
+    print(f"ERROR importing uvicorn: {e}")
+    traceback.print_exc()
+    sys.exit(1)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    print(f"Starting server on port {port}")
-    uvicorn.run(
-        "app.main:app",
-        host="0.0.0.0",
-        port=port,
-        log_level="info"
-    )
+    try:
+        port = int(os.environ.get("PORT", 8000))
+        print(f"Starting server on port {port}")
+        print("Attempting to import app.main...")
+        
+        # Test import first
+        from app.main import app
+        print("Successfully imported app")
+        
+        uvicorn.run(
+            "app.main:app",
+            host="0.0.0.0",
+            port=port,
+            log_level="info"
+        )
+    except Exception as e:
+        print(f"ERROR starting server: {e}")
+        traceback.print_exc()
+        sys.exit(1)

@@ -1,0 +1,10 @@
+# Minimal test Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy test server
+COPY backend/test_server.py .
+
+# Run test server
+CMD ["python", "test_server.py"]
